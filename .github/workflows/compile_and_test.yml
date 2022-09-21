@@ -1,0 +1,9 @@
+name: compile-and-test
+on: [push, merge]
+jobs:
+  compile-and-test:
+    runs-on: ubuntu-latest
+    - run: make
+    - run: LD_LIBRARY_PATH=. ./main_matrix
+    - run: ./main_matrix_static
+    - run: make test
