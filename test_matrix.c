@@ -75,4 +75,19 @@ UTEST(matrix_get, wrong) {
   ASSERT_TRUE(matrix_get(m, 0, 0)==NULL);
 }
 
+UTEST(mul_matrix , simple) {
+    matrix m = matrix_identity(3);
+    matrix n = matrix_identity(3);
+    matrix r = mul_matrix(m , n);
+    ASSERT_TRUE(m.ok && n.ok && r.ok && *matrix_get(r,0,0)==1.);
+
+}
+
+UTEST(mul_matrix , simple2){
+    matrix m = matrix_identity(3);
+    matrix n = scal_mul(m , 5);
+    m = scal_mul(m , 2);
+    matrix r = mul_matrix(m , n);
+    ASSERT_TRUE(m.ok && n.ok && r.ok && r.n1 == 3 && r.n2 == 3 && *matrix_get(r,0,0) == 10. && *matrix_get(r,0,1)==0.);
+}
 UTEST_MAIN()  
