@@ -37,6 +37,19 @@ UTEST(scal_mul, simple) {
   ASSERT_TRUE(n.ok && n.n1==2 && n.n2==2 && *matrix_get(n, 0,0)==3.);
 }
 
+UTEST(fast_pow, simple) {
+  matrix m = matrix_identity(2);
+  matrix m2 = scal_mul(m, 3.);
+  matrix n = fast_pow(m2, 2);
+  ASSERT_TRUE(n.ok && n.n1==2 && n.n2==2);
+}
+UTEST(fast_pow, complexiefied) {
+  matrix m = matrix_identity(2);
+  matrix m2 = scal_mul(m, 3.);
+  matrix n = fast_pow(m2, 2);
+  ASSERT_TRUE(*matrix_get(n, 1,1)==9.);
+}
+
 UTEST(matrix_destroy, simple) {
   matrix m = matrix_create(2, 5, 0.);
   matrix_destroy(m);
