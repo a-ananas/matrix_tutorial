@@ -31,6 +31,12 @@ UTEST(matrix_identity, zero) {
   ASSERT_TRUE(m.ok && m.n1==0 && m.n2==0);
 }
 
+UTEST(scal_mul, simple) {
+  matrix m = matrix_identity(2);
+  matrix n = scal_mul(m, 3.);
+  ASSERT_TRUE(n.ok && n.n1==2 && n.n2==2 && *matrix_get(n, 0,0)==3.);
+}
+
 UTEST(matrix_destroy, simple) {
   matrix m = matrix_create(2, 5, 0.);
   matrix_destroy(m);
