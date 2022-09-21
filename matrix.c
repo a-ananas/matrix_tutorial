@@ -82,3 +82,17 @@ void matrix_print(FILE *f, matrix m)
     }
   }
 }
+
+
+matrix scal_mul(matrix m, scalar l) {
+  matrix res={0,0,false,NULL};
+
+  if(!m.ok)
+    fprintf(f, "Invalid matrix\n");
+  else {
+    for(unsigned i=0; i<m.n1; ++i) {
+      for(unsigned j=0; j<m.n2; ++j)
+				*matrix_get(res, i, j) = l * (*matrix_get(m, i, j));
+    }
+		return res;
+  }
