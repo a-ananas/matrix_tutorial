@@ -21,4 +21,8 @@ void matrix_print(FILE *f, matrix m);
 
 matrix add_matrix(matrix m, matrix n);
 
+matrix mul_matrix(matrix m, matrix n);
+matrix fast_pow(matrix m, unsigned n);
+matrix scal_mul(matrix m, scalar l);
+
 #endif /* MATRIX_H */
