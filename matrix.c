@@ -88,7 +88,7 @@ matrix fast_pow(matrix m, unsigned n) {
     return matrix_identity(m.n1);
   }
 
-  matrix res = fast_pow(m, n >> 2);
+  matrix res = fast_pow(m, n >> 1);
   if (n & 1) {
     res = mul_matrix(res, m);
   }
@@ -96,10 +96,10 @@ matrix fast_pow(matrix m, unsigned n) {
 }
 
 matrix scal_mul(matrix m, scalar l) {
-  matrix res = m;
+  matrix res = matrix_create(m.n1, m.n2, 0.0);
   for (int i = 0; i < m.n1; i++) {
     for (int j = 0; j < m.n2; j++) {
-      *matrix_get(res, i, j) *= l;
+      *matrix_get(res, i, j) = l * *matrix_get(m, i, j);
     }
   }
   return res;
@@ -107,13 +107,19 @@ matrix scal_mul(matrix m, scalar l) {
 
 matrix mul_matrix(matrix a, matrix b)
 {
-    matrix res={0,0,false,NULL};
-    if (a.n2 != b.n1 || !a.ok || !b.ok)
-	return res;
-    res=matrix_create(a.n1,b.n2,0.);
-    for(unsigned i=0; i<res.n1; ++i)
-	for(unsigned j=0; j<res.n2; j++)
-	    for(unsigned k=0; k<a.n2; k++)
-		*matrix_get(res, i, j) = *matrix_get(res, i, j) + (*matrix_get(a, i, k)) * (*matrix_get(b, k, j));
-   return res; 
+  matrix res = {0,0,false,NULL};
+  if (a.n2 != b.n1 || !a.ok || !b.ok) {
+  	return res;
+  }
+  
+  res = matrix_create(a.n1,b.n2,0.);
+  
+  for(unsigned i=0; i<res.n1; ++i) {
+  	for(unsigned j=0; j<res.n2; j++) {
+	    for(unsigned k=0; k<a.n2; k++) {
+    		*matrix_get(res, i, j) = *matrix_get(res, i, j) + (*matrix_get(a, i, k)) * (*matrix_get(b, k, j));
+      }
+    }
+  }
+  return res; 
 }
