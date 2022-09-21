@@ -1,5 +1,5 @@
 name: compile-and-test
-on: [push, merge]
+on: [ push ]
 jobs:
   compile-and-test:
     runs-on: ubuntu-latest
