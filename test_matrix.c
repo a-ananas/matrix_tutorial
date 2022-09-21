@@ -1,5 +1,6 @@
 #include "utest.h"
 #include "matrix.h"
+#include <math.h>
 
 UTEST(matrix_create, simple) {
   matrix m = matrix_create(3, 5, 0.);
@@ -46,8 +47,8 @@ UTEST(fast_pow, simple) {
 UTEST(fast_pow, complexiefied) {
   matrix m = matrix_identity(2);
   matrix m2 = scal_mul(m, 3.);
-  matrix n = fast_pow(m2, 2);
-  ASSERT_TRUE(*matrix_get(n, 1,1)==9.);
+  matrix n = fast_pow(m2, 11);
+  ASSERT_TRUE(*matrix_get(n, 1,1)==pow(3.0, 11.0));
 }
 
 UTEST(matrix_destroy, simple) {

@@ -89,8 +89,14 @@ matrix fast_pow(matrix m, unsigned n) {
   }
 
   matrix res = fast_pow(m, n >> 1);
+  matrix res2 = mul_matrix(res, res);
+  matrix_destroy(res);
+  res = res2;
+
   if (n & 1) {
-    res = mul_matrix(res, m);
+    matrix res3 = mul_matrix(res, m);
+    matrix_destroy(res);
+    res = res3;
   }
   return res;
 }
