@@ -31,6 +31,25 @@ UTEST(matrix_identity, zero) {
   ASSERT_TRUE(m.ok && m.n1==0 && m.n2==0);
 }
 
+UTEST(scal_mul, simple) {
+  matrix m = matrix_identity(2);
+  matrix n = scal_mul(m, 3.);
+  ASSERT_TRUE(n.ok && n.n1==2 && n.n2==2 && *matrix_get(n, 0,0)==3.);
+}
+
+UTEST(fast_pow, simple) {
+  matrix m = matrix_identity(2);
+  matrix m2 = scal_mul(m, 3.);
+  matrix n = fast_pow(m2, 2);
+  ASSERT_TRUE(n.ok && n.n1==2 && n.n2==2);
+}
+UTEST(fast_pow, complexiefied) {
+  matrix m = matrix_identity(2);
+  matrix m2 = scal_mul(m, 3.);
+  matrix n = fast_pow(m2, 2);
+  ASSERT_TRUE(*matrix_get(n, 1,1)==9.);
+}
+
 UTEST(matrix_destroy, simple) {
   matrix m = matrix_create(2, 5, 0.);
   matrix_destroy(m);
@@ -56,4 +75,19 @@ UTEST(matrix_get, wrong) {
   ASSERT_TRUE(matrix_get(m, 0, 0)==NULL);
 }
 
+UTEST(mul_matrix , simple) {
+    matrix m = matrix_identity(3);
+    matrix n = matrix_identity(3);
+    matrix r = mul_matrix(m , n);
+    ASSERT_TRUE(m.ok && n.ok && r.ok && *matrix_get(r,0,0)==1.);
+
+}
+
+UTEST(mul_matrix , simple2){
+    matrix m = matrix_identity(3);
+    matrix n = scal_mul(m , 5);
+    m = scal_mul(m , 2);
+    matrix r = mul_matrix(m , n);
+    ASSERT_TRUE(m.ok && n.ok && r.ok && r.n1 == 3 && r.n2 == 3 && *matrix_get(r,0,0) == 10. && *matrix_get(r,0,1)==0.);
+}
 UTEST_MAIN()  

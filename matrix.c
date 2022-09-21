@@ -97,8 +97,8 @@ matrix fast_pow(matrix m, unsigned n) {
 
 matrix scal_mul(matrix m, scalar l) {
   matrix res = matrix_create(m.n1, m.n2, 0.0);
-  for (int i = 0; i < m.n1; i++) {
-    for (int j = 0; j < m.n2; j++) {
+  for (unsigned i = 0; i < m.n1; i++) {
+    for (unsigned j = 0; j < m.n2; j++) {
       *matrix_get(res, i, j) = l * *matrix_get(m, i, j);
     }
   }
