@@ -56,4 +56,11 @@ UTEST(matrix_get, wrong) {
   ASSERT_TRUE(matrix_get(m, 0, 0)==NULL);
 }
 
+UTEST(mul_matrix , simple) {
+    matrix m = matrix_identity(3);
+    matrix n = matrix_identity(3);
+    matrix r = mul_matrix(m , n);
+    ASSERT_TRUE(m.ok && n.ok && r.ok && *matrix_get(r,0,0)==1.);
+
+}
 UTEST_MAIN()  
