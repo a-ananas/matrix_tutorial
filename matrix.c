@@ -82,3 +82,25 @@ void matrix_print(FILE *f, matrix m)
     }
   }
 }
+
+matrix fast_pow(matrix m, unsigned n) {
+  if (n == 0) {
+    return matrix_identity(m.n1);
+  }
+
+  matrix res = fast_pow(m, n >> 2);
+  if (n & 1) {
+    res = mul_matrix(res, m);
+  }
+  return res;
+}
+
+matrix scal_mul(matrix m, scalar l) {
+  matrix res = m;
+  for (int i = 0; i < m.n1; i++) {
+    for (int j = 0; j < m.n2; j++) {
+      *matrix_get(res, i, j) *= l;
+    }
+  }
+  return res;
+}
